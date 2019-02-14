@@ -1,14 +1,13 @@
-(ns file-parser.sort)
+(ns file-parser.sort
+  (:require [file-parser.gender :as gender]))
 
-(def gender->ordinal {:female 0
-                      :male 1
-                      :other 2})
+
 
 (def ascending compare)
 
 (def descending (comp - compare))
 
-(defn gender [m] (-> (:gender m) gender->ordinal))
+(defn gender [m] (-> (:gender m) gender/gender->ordinal))
 
 (defn output-1 [coll]
   (->> coll

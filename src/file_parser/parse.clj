@@ -1,7 +1,7 @@
 (ns file-parser.parse
   (:require [file-parser.date :refer [date-parser]]
-            [clojure.java.io :as io]
-            [clojure.string :as str]))
+            [file-parser.gender :refer [gender-parser]]
+            [clojure.java.io :as io]))
 
 (defn same-length? [xs ys]
   (= (count xs) (count ys)))
@@ -11,6 +11,9 @@
 
 (defn date-field [name]
   {:name name :parser date-parser})
+
+(defn gender-field [name]
+  {:name name :parser gender-parser})
 
 (defn validate-line [fields words]
   (when-not (same-length? fields words)
