@@ -12,9 +12,10 @@
                       :other 2})
 
 (defn enum-parser [word words-map else]
-  (-> word
-      str/lower-case
-      (#(get words-map % else))))
+  (when-not (empty? word)
+    (-> word
+        str/lower-case
+        (#(get words-map % else)))))
 
 (defn gender-parser [word]
   (enum-parser word gender-words-map :other))

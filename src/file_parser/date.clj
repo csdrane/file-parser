@@ -5,4 +5,8 @@
 (def date-format (f/formatter t/utc "YYYY-MM-dd" "YYYY/MM/dd" "MM/dd/YYYY" "MM-dd-YYYY"))
 
 (defn date-parser [word]
-  (f/parse date-format word))
+  "Parse a date. If unsuccessful, return nil."
+  (try
+    (f/parse date-format word)
+    (catch Exception _
+        nil)))
