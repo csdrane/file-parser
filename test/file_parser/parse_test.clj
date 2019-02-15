@@ -16,28 +16,28 @@
             (sut/text-field :favorite-color)
             (sut/date-field :date-of-birth)]]
 
-  (t/is (= (sut/parse-line sut/pipe-delimiter spec "Drane | Chris | Male | Blue | 8/18/1985")
+  (t/is (= (sut/parse-line sut/pipe-delimiter sut/expected-fields "Drane | Chris | Male | Blue | 8/18/1985")
            {:last-name "Drane"
             :first-name "Chris"
             :gender :male
             :favorite-color "Blue"
             :date-of-birth (d/date-parser "8/18/1985")}))
 
-  (t/is (= (sut/parse-line sut/comma-delimiter spec "Drane, Chris, Male, Blue, 8/18/1985")
+  (t/is (= (sut/parse-line sut/comma-delimiter sut/expected-fields "Drane, Chris, Male, Blue, 8/18/1985")
            {:last-name "Drane"
             :first-name "Chris"
             :gender :male
             :favorite-color "Blue"
             :date-of-birth (d/date-parser "8/18/1985")}))
 
-  (t/is (= (sut/parse-line sut/space-delimiter spec "Drane Chris Male Blue 8/18/1985")
+  (t/is (= (sut/parse-line sut/space-delimiter sut/expected-fields "Drane Chris Male Blue 8/18/1985")
            {:last-name "Drane"
             :first-name "Chris"
             :gender :male
             :favorite-color "Blue"
             :date-of-birth (d/date-parser "8/18/1985")}))
 
-  (t/is (= (sut/parse-file "resources/pipe.txt" sut/pipe-delimiter spec)
+  (t/is (= (sut/parse-file "resources/pipe.txt" sut/pipe-delimiter sut/expected-fields)
            (list
             {:last-name "Drane"
              :first-name "Chris"
@@ -53,4 +53,35 @@
              :first-name "Entry"
              :gender :other
              :favorite-color nil
-             :date-of-birth nil}))))
+             :date-of-birth nil})))
+
+  (t/is (= (sut/parse-file "resources/comma.txt" sut/comma-delimiter sut/expected-fields)
+           (list
+            {:last-name "Drane"
+             :first-name "Chris"
+             :gender :male
+             :favorite-color "Blue"
+             :date-of-birth (d/date-parser "8/18/1985")}
+            {:last-name "Bokoff"
+             :first-name "Jen"
+             :gender :female
+             :favorite-color "Purple"
+             :date-of-birth (d/date-parser "11/30/1986")}
+            {:last-name "Sparse"
+             :first-name "Entry"
+             :gender :other
+             :favorite-color nil
+             :date-of-birth nil})))
+
+  (t/is (= (sut/parse-file "resources/space.txt" sut/space-delimiter sut/expected-fields)
+           (list
+            {:last-name "Drane"
+             :first-name "Chris"
+             :gender :male
+             :favorite-color "Blue"
+             :date-of-birth (d/date-parser "8/18/1985")}
+            {:last-name "Bokoff"
+             :first-name "Jen"
+             :gender :female
+             :favorite-color "Purple"
+             :date-of-birth (d/date-parser "11/30/1986")}))))

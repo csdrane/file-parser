@@ -25,6 +25,12 @@
 (defn gender-field [name]
   {:name name :parser gender-parser})
 
+(def expected-fields [(text-field :last-name)
+                      (text-field :first-name)
+                      (gender-field :gender)
+                      (text-field :favorite-color)
+                      (date-field :date-of-birth)])
+
 (defn valid-line? [fields words]
   (same-length? fields words))
 
@@ -41,9 +47,20 @@
       (log/warnf "unable to parse line: %s" line))))
 
 (defn parse-file [filename re-delimiter fields]
-  (let [file-contents (slurp filename)
-        lines (str/split-lines file-contents)
-        line-parser (partial parse-line re-delimiter fields)]
-    (->> (map line-parser lines)
-         (filter some?))))
+  (try
+    (let [file-contents (slurp filename)
+          lines (str/split-lines file-contents)
+          line-parser (partial parse-line re-delimiter fields)]
+      (->> (map line-parser lines)
+           (filter some?)))
+    (catch Exception e
+      (log/errorf "failed to parse file: %s" filename))))
 
+(defn parse-comma-file [filename]
+  (parse-file filename comma-delimiter expected-fields))
+
+(defn parse-space-file [filename]
+  (parse-file filename space-delimiter expected-fields))
+
+(defn parse-pipe-file [filename]
+  (parse-file filename pipe-delimiter expected-fields))
