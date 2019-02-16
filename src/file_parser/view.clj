@@ -26,8 +26,10 @@
 
 (defn view* [description entries]
   (println description)
+  (println)
   (doseq [entry entries]
-    (view-entry entry)))
+    (view-entry entry))
+  (println))
 
 (defn view [seq]
   (view* output-1-description (sort/output-1 seq))

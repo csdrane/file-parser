@@ -1,3 +1,4 @@
-Drane, Chris, Male, Blue, 8/18/1985
-Bokoff, Jen, Female, Purple, 11/30/1986
+Drane, Chris, Male, blue, 8/18/1985
+Bokoff, Jen, Female, purple, 11/30/1986
 Sparse, Entry, , , n/a
+Zweilter, Jerry, M, red, 2/2/1922
