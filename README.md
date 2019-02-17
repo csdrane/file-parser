@@ -1,36 +1,23 @@
 # file-parser
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+Parses input files and prints output on startup; then spawns Jetty server.
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar file-parser-0.1.0-standalone.jar [args]
+    $ lein run
 
 ## Options
 
-FIXME: listing of options this app accepts.
+    -c --comma-file FILE Parse comma-seperated file
+    -s --space-file FILE Parse space-seperated file
+    -p --pipe-file FILE Parse pipe-seperated file
+    -P --port PORT Webserver port (default 3000)
 
 ## Examples
 
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    $ lein run -c resources/comma.txt -p resources/pipe.txt -s resources/space.txt
 
 ## License
-
-Copyright © 2019 FIXME
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
