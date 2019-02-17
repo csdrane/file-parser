@@ -1,5 +1,6 @@
 (ns file-parser.routes
-  (:require [cheshire.core :as cheshire]
+  (:require [clojure.core :rename {sort sort'}]
+            [cheshire.core :as cheshire]
             [compojure.core :refer :all]
             [compojure.route :as route]
             [file-parser.state :as state]

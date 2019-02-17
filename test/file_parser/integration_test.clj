@@ -1,9 +1,9 @@
 (ns file-parser.integration-test
   (:require  [clojure.core :rename {sorted? sorted?'}]
              [clojure.test :as t]
+             [cheshire.core :as cheshire]
              [clj-http.client :as client]
              [file-parser.core :as core]
-             [cheshire.core :as cheshire]
              [file-parser.gender :as gender]))
 
 (def old-record-count (atom nil))
