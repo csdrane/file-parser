@@ -34,17 +34,20 @@
 (defn valid-line? [fields words]
   (same-length? fields words))
 
-(defn parse-line [re-delimiter fields line]
+(defn parse-line
   "Parses a line. Returns nil if invalid input."
-  (let [words (str/split line re-delimiter)]
-    (if (valid-line? fields words)
-      (loop [m {}
-             [{:keys [name parser] :as field} & fields'] fields
-             [word & words'] words]
-        (if (nil? field)
-          m
-          (recur (assoc m name (parser word)) fields' words')))
-      (log/warnf "unable to parse line: %s" line))))
+  ([re-delimiter fields line {:keys [logging?]}]
+   (let [words (str/split line re-delimiter)]
+     (if (valid-line? fields words)
+       (loop [m {}
+              [{:keys [name parser] :as field} & fields'] fields
+              [word & words'] words]
+         (if (nil? field)
+           m
+           (recur (assoc m name (parser word)) fields' words')))
+       (when logging? (log/warnf "unable to parse line: %s" line)))))
+  ([re-delimiter fields line]
+   (parse-line re-delimiter fields line {:logging? true})))
 
 (defn parse-file [filename re-delimiter fields]
   (try
