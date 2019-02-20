@@ -26,20 +26,23 @@
 
 (defn records-by-gender []
   (*200 (-> @state/records
-            sort/output-1
+            sort/by-gender
             cheshire/generate-string)))
 
 (defn records-by-birthdate []
   (*200 (-> @state/records
-            sort/output-2
+            sort/by-date-of-birth
             cheshire/generate-string)))
 
 (defn records-by-name []
   (*200 (-> @state/records
-            sort/output-3
+            sort/by-last-name
             cheshire/generate-string)))
 
-(defn parse [line]
+(defn parse
+  "Attempts to parse user input by iterating over our known input formats, accepting
+  the first successful parse. Returns nil on failure."
+  [line]
   (loop [[parser & parsers] [#(parse/parse-line parse/pipe-delimiter parse/expected-fields % {:logging? false})
                              #(parse/parse-line parse/space-delimiter parse/expected-fields % {:logging? false})
                              #(parse/parse-line parse/comma-delimiter parse/expected-fields % {:logging? false})]]

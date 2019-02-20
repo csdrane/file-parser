@@ -11,7 +11,10 @@
                       :male 1
                       :other 2})
 
-(defn enum-parser [word words-map else]
+(defn enum-parser
+  "Parse an by supplying a predefined set of possible words and the value they
+   map to, plus a default in case a value isn't in our words-map."
+  [word words-map else]
   (when-not (empty? word)
     (-> word
         str/lower-case

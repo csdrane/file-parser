@@ -32,6 +32,6 @@
   (println))
 
 (defn view [seq]
-  (view* output-1-description (sort/output-1 seq))
-  (view* output-2-description (sort/output-2 seq))
-  (view* output-3-description (sort/output-3 seq)))
+  (view* output-1-description (sort/by-gender seq))
+  (view* output-2-description (sort/by-date-of-birth seq))
+  (view* output-3-description (sort/by-last-name seq)))

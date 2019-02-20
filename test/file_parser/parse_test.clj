@@ -16,6 +16,10 @@
               (sut/text-field :favorite-color)
               (sut/date-field :date-of-birth)]]
 
+    (t/is (nil? (sut/parse-line sut/pipe-delimiter sut/expected-fields "invalid | input")))
+    (t/is (nil? (sut/parse-line sut/comma-delimiter sut/expected-fields "invalid , input")))
+    (t/is (nil? (sut/parse-line sut/space-delimiter sut/expected-fields "invalid input")))
+
     (t/is (= (sut/parse-line sut/pipe-delimiter sut/expected-fields "Drane | Chris | Male | Blue | 8/18/1985")
              {:last-name "Drane"
               :first-name "Chris"

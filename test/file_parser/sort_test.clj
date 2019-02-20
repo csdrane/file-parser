@@ -28,6 +28,6 @@
                    {:gender :other :last-name "bar" :date-of-birth (d/date-parser "11-1-1980")}
                    {:gender :male :last-name "aa" :date-of-birth (d/date-parser "2-1-1980")}])
 
-  (t/is (= (sut/output-1 input) expected-1))
-  (t/is (= (sut/output-2 input) expected-2))
-  (t/is (= (sut/output-3 input) expected-3)))
+  (t/is (= (sut/by-gender input) expected-1))
+  (t/is (= (sut/by-date-of-birth input) expected-2))
+  (t/is (= (sut/by-last-name input) expected-3)))

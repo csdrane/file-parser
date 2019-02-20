@@ -35,7 +35,8 @@
   (same-length? fields words))
 
 (defn parse-line
-  "Parses a line. Returns nil if invalid input."
+  "Parses a line, given a regex delimiter and fields to parse. Returns nil if invalid input.
+  Tolerates sparse input but expects line to split into entries equal to cardinality of fields."
   ([re-delimiter fields line {:keys [logging?]}]
    (let [words (str/split line re-delimiter)]
      (if (valid-line? fields words)
@@ -49,7 +50,9 @@
   ([re-delimiter fields line]
    (parse-line re-delimiter fields line {:logging? true})))
 
-(defn parse-file [filename re-delimiter fields]
+(defn parse-file
+  "Parse file located at filename, given regex delimiter and expected fields."
+  [filename re-delimiter fields]
   (try
     (let [file-contents (slurp filename)
           lines (str/split-lines file-contents)
